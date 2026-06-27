@@ -38,6 +38,7 @@ llm = ChatGroq(model="openai/gpt-oss-20b", streaming=True, api_key=GROQ_API_KEY)
 embeddings = GoogleGenerativeAIEmbeddings(
     model="text-embedding-004",
     transport="rest",
+    google_api_key=GOOGLE_API_KEY,
 )
 # -------------------
 # 2. PDF retriever store (per thread)
@@ -144,7 +145,7 @@ def get_stock_price(symbol: str) -> dict:
     """
     url = (
         "https://www.alphavantage.co/query"
-        f"?function=GLOBAL_QUOTE&symbol={symbol}&apikey=V3EO7T8CRNRF9B1V"
+        f"?function=GLOBAL_QUOTE&symbol={symbol}&apikey={ALPHA_VANTAGE_API_KEY}"
     )
     r = requests.get(url)
     return r.json()
