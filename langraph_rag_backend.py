@@ -36,7 +36,7 @@ ALPHA_VANTAGE_API_KEY = (
 # -------------------
 llm = ChatGroq(model="openai/gpt-oss-20b", streaming=True, api_key=GROQ_API_KEY)
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/text-embedding-004",
+    model="text-embedding-004",
     transport="rest",
 )
 # -------------------
