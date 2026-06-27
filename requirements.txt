@@ -20,3 +20,5 @@ faiss-cpu
 pypdf
 
 requests==2.32.4
+
+duckduckgo-search
