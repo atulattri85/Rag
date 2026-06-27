@@ -18,6 +18,8 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 import requests
 import streamlit as st
 
@@ -35,10 +37,14 @@ ALPHA_VANTAGE_API_KEY = (
 # 1. LLM + embeddings
 # -------------------
 llm = ChatGroq(model="openai/gpt-oss-20b", streaming=True, api_key=GROQ_API_KEY)
-embeddings = GoogleGenerativeAIEmbeddings(
-    model="text-embedding-004",
-    transport="rest",
-    google_api_key=GOOGLE_API_KEY,
+# embeddings = GoogleGenerativeAIEmbeddings(
+#     model="text-embedding-004",
+#     transport="rest",
+#     google_api_key=GOOGLE_API_KEY,
+# )
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 # -------------------
 # 2. PDF retriever store (per thread)
