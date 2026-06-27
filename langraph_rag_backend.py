@@ -19,15 +19,25 @@ from langgraph.graph import START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
 import requests
+import streamlit as st
 
 load_dotenv()
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or st.secrets.get("GOOGLE_API_KEY")
+ALPHA_VANTAGE_API_KEY = (
+    os.getenv("ALPHA_VANTAGE_API_KEY")
+    or st.secrets.get("ALPHA_VANTAGE_API_KEY")
+)
+
+
 
 # -------------------
 # 1. LLM + embeddings
 # -------------------
-llm = ChatGroq(model="openai/gpt-oss-20b", streaming=True)
+llm = ChatGroq(model="openai/gpt-oss-20b", streaming=True, api_key=GROQ_API_KEY)
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/text-embedding-004"
+    model="models/text-embedding-004",
+    transport="rest",
 )
 # -------------------
 # 2. PDF retriever store (per thread)
